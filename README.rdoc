@@ -77,6 +77,22 @@ By mixing and matching the <code>--load-file</code> and <code>--user</code> opti
 
 If you want to override a variable (like your environment) at the time of deployment you can do so with the <code>--set</code> option: http://wiki.github.com/javan/whenever/setting-variables-on-the-fly
 
+== Using with Bundler
+To use whenever with bundler you will need to change your "config/deploy.rb" to something like:
+
+  set :rake_path, 'bin/rake'
+  
+  after "deploy:symlink", "deploy:update_crontab"
+
+  namespace :deploy do
+    desc "Update the crontab file"
+    task :update_crontab, :roles => :db do
+      run "cd #{release_path} && bin/whenever --update-crontab #{application}"
+    end
+  end
+
+Note the :rake_path setting and the 'bin/whenever' these are necessary because the binaries you will want to use are now under 'bin' directory in your project.
+
 == Credit
 
 Whenever was created for use at Inkling (http://inklingmarkets.com) where I work. Their take on it: http://blog.inklingmarkets.com/2009/02/whenever-easy-way-to-do-cron-jobs-from.html
