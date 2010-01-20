@@ -80,16 +80,21 @@ If you want to override a variable (like your environment) at the time of deploy
 == Using with Bundler
 To use whenever with bundler you will need to change your "config/deploy.rb" to something like:
 
-  set :rake_path, 'bin/rake'
-  
   after "deploy:symlink", "deploy:update_crontab"
 
+  
   namespace :deploy do
     desc "Update the crontab file"
     task :update_crontab, :roles => :db do
       run "cd #{release_path} && bin/whenever --update-crontab #{application}"
     end
   end
+  
+
+And you will need to add the following line to "config/schedule.rb":
+  
+  set :rake_path, 'bin/rake'
+  
 
 Note the :rake_path setting and the 'bin/whenever' these are necessary because the binaries you will want to use are now under the 'bin' directory in your project.
 
