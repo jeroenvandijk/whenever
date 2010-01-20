@@ -91,7 +91,7 @@ To use whenever with bundler you will need to change your "config/deploy.rb" to 
     end
   end
 
-Note the :rake_path setting and the 'bin/whenever' these are necessary because the binaries you will want to use are now under 'bin' directory in your project.
+Note the :rake_path setting and the 'bin/whenever' these are necessary because the binaries you will want to use are now under the 'bin' directory in your project.
 
 == Credit
 
