@@ -54,6 +54,7 @@ module Whenever
     end
     
     def rake(task, options = {})
+      options[:rake_path] = @rake_path if defined?(@rake_path) && !options.has_key?(:rake_path)
       options.reverse_merge!(:environment => @environment, :path => @path)
       options[:class] = Whenever::Job::RakeTask
       command(task, options)
